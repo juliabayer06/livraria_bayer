@@ -1,6 +1,6 @@
 <script>
-  import EditorasApi from "@/api/editores.js";
-  const EditorasApi = new EditorasApi();
+  import EditorasApi from "@/api/editoras.js";
+  const editorasApi = new EditorasApi();
   export default {
     data() {
     return {
@@ -9,21 +9,21 @@
     };
   },
   async created() {
-    this.editoras = await EditorasApi.buscarTodasAsEditoras();
+    this.editoras = await editorasApi.buscarTodasAsEditoras();
   },
   methods: {
     async salvar() {
       if (this.editora.id) {
-        await EditorasApi.atualizarEditora(this.editora);
+        await editorasApi.atualizarEditora(this.editora);
       } else {
-        await EditorasApi.adicionarEditora(this.editora);
+        await editorasApi.adicionarEditora(this.editora);
       }
-      this.editora = await EditorasApi.buscarTodasAsEditoras();
+      this.editoras = await editorasApi.buscarTodasAsEditoras();
       this.editora = {};
     },
     async excluir(editora) {
-      await EditorasApi.excluirEditora(editora.id);
-      this.editoras = await EditorasApi.buscarTodasAsEditoras();
+      await editorasApi.excluirEditora(editora.id);
+      this.editoras = await editorasApi.buscarTodasAsEditoras();
     },
     editar(editora) {
       Object.assign(this.editora, editora);
@@ -38,7 +38,8 @@
       <h2>Gerenciamento de editoras</h2>
     </div>
     <div class="form-input">
-      <input type="text" v-model="novo_editora" @keyup.enter="salvar" />
+      <input type="text" v-model="editora.name" @keyup.enter="salvar" />
+      <input type="text" v-model="editora.site" @keyup.enter="salvar" />
       <button @click="salvar">Salvar</button>
     </div>
   </div>

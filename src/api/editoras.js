@@ -27,4 +27,4 @@ export default class EditorasApi {
     );
     return response.data;
   }
-} 
+}

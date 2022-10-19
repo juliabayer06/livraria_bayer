@@ -1,6 +1,6 @@
 <script>
 import CategoriasApi from "@/api/categorias.js";
-const CategoriasApi = new CategoriasApi();
+const categoriasApi = new CategoriasApi();
 export default {
   data() {
     return {
@@ -9,21 +9,21 @@ export default {
     };
   },
   async created() {
-    this.categorias = await CategoriasApi.buscarTodasAsCategorias();
+    this.categorias = await categoriasApi.buscarTodasAsCategorias();
   },
   methods: {
     async salvar() {
       if (this.categoria.id) {
-        await CategoriasApi.atualizarCategoria(this.categoria);
+        await categoriasApi.atualizarCategoria(this.categoria);
       } else {
-        await CategoriasApi.adicionarCategoria(this.categoria);
+        await categoriasApi.adicionarCategoria(this.categoria);
       }
-      this.categorias = await CategoriasApi.buscarTodasAsCategorias();
+      this.categorias = await categoriasApi.buscarTodasAsCategorias();
       this.categoria = {};
     },
     async excluir(categoria) {
-      await CategoriasApi.excluirCategoria(categoria.id);
-      this.categorias = await CategoriasApi.buscarTodasAsCategorias();
+      await categoriasApi.excluirCategoria(categoria.id);
+      this.categorias = await categoriasApi.buscarTodasAsCategorias();
     },
     editar(categoria) {
       Object.assign(this.categoria, categoria);

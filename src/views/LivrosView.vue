@@ -1,6 +1,6 @@
 <script>
   import LivrosApi from "@/api/livros.js";
-  const LivrosApi = new LivrosApi();
+  const livrosApi = new LivrosApi();
   export default {
     data() {
     return {

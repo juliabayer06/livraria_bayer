@@ -1,6 +1,6 @@
 <script>
   import AutoresApi from "@/api/autores.js";
-  const AutoresApi = new AutoresApi();
+  const autoresApi = new AutoresApi();
   export default {
     data() {
     return {
@@ -9,21 +9,21 @@
     };
   }, 
   async created() {
-    this.autores = await AutoresApi.buscarTodosOsAutores();
+    this.autores = await autoresApi.buscarTodosOsAutores();
   },
   methods: {
     async salvar() {
-      if (this.autores.id) {
-        await AutoresApi.atualizarAutor(this.autor);
+      if (this.autor.id) {
+        await autoresApi.atualizarAutor(this.autor);
       } else {
-        await AutoresApi.adicionarAutor(this.autor);
+        await autoresApi.adicionarAutor(this.autor);
       }
-      this.autor = await AutoresApi.buscarTodosOsAutores();
-      this.autor = {};
+      this.autores = await autoresApi.buscarTodosOsAutores();
+      this.autores = {};
     },
     async excluir(autor) {
-      await AutoresApi.excluirAutor(autor.id);
-      this.autores = await AutoresApi.buscarTodosOsAutores();
+      await autoresApi.excluirAutor(autor.id);
+      this.autores = await autoresApi.buscarTodosOsAutores();
     },
     editar(autor) {
       Object.assign(this.autor, autor);
@@ -38,7 +38,8 @@
       <h2>Gerenciamento de autores</h2>
     </div>
     <div class="form-input">
-      <input type="text" v-model="novo_autor" @keyup.enter="salvar" />
+      <input type="text" v-model="autor.name" @keyup.enter="salvar" />
+      <input type="text" v-model="autor.site" @keyup.enter="salvar" />
       <button @click="salvar">Salvar</button>
     </div>
   </div>
